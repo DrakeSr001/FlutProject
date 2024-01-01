@@ -21,7 +21,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController lastNameController;
   late TextEditingController phoneNumberController;
   late TextEditingController passwordController;
-  late TextEditingController profileImgController;
 
   @override
   void initState() {
@@ -31,8 +30,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     firstNameController = TextEditingController(text: widget.user.firstName);
     lastNameController = TextEditingController(text: widget.user.lastName);
     passwordController = TextEditingController(text: widget.user.password);
-    profileImgController =
-        TextEditingController(text: widget.user.profileImage);
     phoneNumberController =
         TextEditingController(text: widget.user.phoneNumber);
   }
@@ -76,7 +73,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     lastNameController.dispose();
     passwordController.dispose();
     phoneNumberController.dispose();
-    profileImgController.dispose();
+    phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -117,10 +114,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Phone Number'),
                   controller: phoneNumberController,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Profile image URL'),
-                  controller: profileImgController,
                 ),
                 SizedBox(height: 20.0),
                 Row(
