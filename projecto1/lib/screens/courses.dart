@@ -170,10 +170,12 @@ class _CourserState extends State<Courser> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                course.courseName!,
-                                softWrap: true,
-                                style: TextStyle(fontSize: 7),
+                              Expanded(
+                                child: Text(
+                                  course.courseName!,
+                                  softWrap: true,
+                                  style: TextStyle(fontSize: 12),
+                                ),
                               ),
                               Text("\$${course.coursePrice.toString()}")
                             ],
