@@ -46,78 +46,92 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {});
   }
 
+  void updateUserCallback(Customer updatedUser) {
+    setState(() {
+      // Update the usersList with the updatedUser details
+      usersList[0] = updatedUser;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getAllPersons();
-    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(Icons.arrow_back_sharp)),
         title: Text('Profile'),
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.blue, // Set the color of the border
-                    width: 3.0, // Set the width of the border
-                  ),
-                ),
-                child: CircleAvatar(
-                  radius: 60.0,
-                  backgroundImage: NetworkImage(usersList
-                      .first.profileImage!), // Replace with your image path
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          EditProfileScreen(user: usersList.first),
+        child: isLoaded == 1
+            ? SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.blue, // Set the color of the border
+                          width: 3.0, // Set the width of the border
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        radius: 60.0,
+                        backgroundImage: NetworkImage(usersList.first
+                            .profileImage!), // Replace with your image path
+                      ),
                     ),
-                  );
-                },
-                child: Text('Edit Profile'),
-              ),
-              SizedBox(height: 60.0),
-              ProfileTextBox(
-                  label: 'Username',
-                  value: usersList.isNotEmpty
-                      ? usersList.first.username ?? ""
-                      : ""),
-              ProfileTextBox(
-                  label: 'Email',
-                  value:
-                      usersList.isNotEmpty ? usersList.first.email ?? "" : ""),
-              ProfileTextBox(
-                  label: 'First Name',
-                  value: usersList.isNotEmpty
-                      ? usersList.first.firstName ?? ""
-                      : ""),
-              ProfileTextBox(
-                  label: 'Last Name',
-                  value: usersList.isNotEmpty
-                      ? usersList.first.lastName ?? ""
-                      : ""),
-              ProfileTextBox(
-                  label: 'Phone Number',
-                  value: usersList.isNotEmpty
-                      ? usersList.first.phoneNumber ?? ""
-                      : ""),
-            ],
-          ),
-        ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                EditProfileScreen(user: usersList.first),
+                          ),
+                        );
+                      },
+                      child: Text('Edit Profile'),
+                    ),
+                    SizedBox(height: 60.0),
+                    ProfileTextBox(
+                        label: 'Username',
+                        value: usersList.isNotEmpty
+                            ? usersList.first.username ?? ""
+                            : ""),
+                    ProfileTextBox(
+                        label: 'Email',
+                        value: usersList.isNotEmpty
+                            ? usersList.first.email ?? ""
+                            : ""),
+                    ProfileTextBox(
+                        label: 'First Name',
+                        value: usersList.isNotEmpty
+                            ? usersList.first.firstName ?? ""
+                            : ""),
+                    ProfileTextBox(
+                        label: 'Last Name',
+                        value: usersList.isNotEmpty
+                            ? usersList.first.lastName ?? ""
+                            : ""),
+                    ProfileTextBox(
+                        label: 'Phone Number',
+                        value: usersList.isNotEmpty
+                            ? usersList.first.phoneNumber ?? ""
+                            : ""),
+                  ],
+                ),
+              )
+            : CircularProgressIndicator(),
       ),
     );
   }
