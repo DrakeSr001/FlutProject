@@ -71,6 +71,12 @@ class _CategoriesState extends State<Categories> {
     debugPrint(courses.toString());
     debugPrint(courses.length.toString());
 
+    List<String> imagesList = [
+      'https://media.gcflearnfree.org/content/5e31ca08bc7eff08e4063776_01_29_2020/ProgrammingIllustration.png',
+      'https://img.freepik.com/free-psd/3d-rendering-graphic-design_23-2149667482.jpg',
+      'https://i.ibb.co/T89fV9K/DALL-E-2024-01-05-18-05-49-A-professional-and-modern-Human-Resource-Management-HRM-concept-image-dep.png',
+    ];
+
     int categoriesIndex = 0;
     int coursesIndex = 0;
 
@@ -121,44 +127,51 @@ class _CategoriesState extends State<Categories> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 50, left: 15, right: 15),
-          child: SizedBox(
-            height: 200, // Adjust the height based on your requirements
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Set the number of items in a row
-                crossAxisSpacing:
-                    10.0, // Set the spacing between items horizontally
-                mainAxisSpacing:
-                    10.0, // Set the spacing between items vertically
-              ),
-              itemCount: categoryRedundant.length,
-              shrinkWrap: true,
-              scrollDirection:
-                  Axis.vertical, // Set the scroll direction to vertical
-              itemBuilder: (BuildContext context, index) {
-                Course course = courseList[index];
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      categoriesIndex = int.parse(course.courseCategory!);
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(right: 30),
-                    child: Text(
-                      categoryRedundant[index],
-                      style: TextStyle(
-                        color: categoriesIndex == index
-                            ? const Color.fromARGB(255, 9, 75, 196)
-                            : Colors.black38,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // Set the number of items in a row
+              crossAxisSpacing:
+                  8.0, // Set the spacing between items horizontally
+              mainAxisSpacing: 15.0, // Set the spacing between items vertically
+            ),
+            itemCount: categoryRedundant.length,
+            shrinkWrap: true,
+            scrollDirection:
+                Axis.vertical, // Set the scroll direction to vertical
+            itemBuilder: (BuildContext context, index) {
+              Course course = courseList[index];
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    categoriesIndex = int.parse(course.courseCategory!);
+                  });
+                },
+                child: Column(
+                  children: [
+                    SizedBox(
+                        width: 180,
+                        height: 120,
+                        child: Image(
+                          image: NetworkImage(imagesList[index]),
+                          fit: BoxFit.fill,
+                        )),
+                    Container(
+                      padding: EdgeInsets.only(right: 30),
+                      child: Text(
+                        categoryRedundant[index],
+                        style: TextStyle(
+                          color: categoriesIndex == index
+                              ? const Color.fromARGB(255, 9, 75, 196)
+                              : Colors.black38,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ]),
