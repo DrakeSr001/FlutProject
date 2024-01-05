@@ -137,23 +137,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             phoneNumberController.text,
                             passwordController.text,
                             context,
-                          );
-
-                          // Introduce a small delay (e.g., 500 milliseconds) before navigating
-                          await Future.delayed(Duration(milliseconds: 500));
-
-                          // Check if the widget is still mounted before navigating
-                          if (mounted) {
-                            print('Save changes pressed');
-                            Navigator.push(
+                          ).then((value) {
+                            Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
                                     ProfileScreen(id: widget.user.id!),
                               ),
                             );
-                            setState(() {});
-                          }
+                          });
                         } catch (e) {
                           // Handle any errors that occurred during the update or navigation
                           print('Error during save changes: $e');
